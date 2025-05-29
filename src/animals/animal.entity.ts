@@ -1,37 +1,51 @@
-import { Field, Int, ObjectType, Scalar } from "@nestjs/graphql";
+import { Field, Int, ObjectType, Scalar } from '@nestjs/graphql';
 import { GraphQLISODateTime } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Person } from 'src/persons/persons.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
-@Entity()
+@Entity('animals')
 @ObjectType()
-export class Animal{
+export class Animal {
+  @PrimaryGeneratedColumn()
+  @Field((type) => Int)
+  id: number;
 
-@PrimaryGeneratedColumn()
-@Field(type => Int)
-id: number;
+  @Column()
+  @Field()
+  name: string;
 
+  @Column()
+  @Field(() => GraphQLISODateTime)
+  dateOfBirth: Date;
 
-@Column()
-@Field()
-name: string;
+  @Column()
+  @Field()
+  species: string;
 
-@Column()
-@Field(() => GraphQLISODateTime)
-dateOfBirth: Date;
+  @Column()
+  @Field()
+  breed: string;
 
-@Column()
-@Field()
-species: string;
+  @Column()
+  @Field()
+  color: string;
 
-@Column()
-@Field()
-breed: string;
+  @Column()
+  @Field((type) => Int)
+  weight: number;
 
-@Column()
-@Field()
-color: string;
+  @ManyToOne(() => Person, (persons) => persons.animals)
+  @JoinColumn({ name: 'ownerId' })
+  @Field(() => Person)
+  persons: Person;
 
-@Column()
-@Field(type => Int)
-weight: number;
+  @Column()
+  @Field((type) => Int)
+  ownerId: number;
 }

@@ -1,7 +1,8 @@
 import { Field, Int, ObjectType} from "@nestjs/graphql";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Animal } from "src/animals/animal.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity('persons')
 @ObjectType()
 export class Person{
 
@@ -9,19 +10,23 @@ export class Person{
 @Field(type => Int)
 id: number;
 
-@Column()
+@Column({name: 'lastName', type:'varchar', length:'255'})
 @Field()
 lastName: string;
 
-@Column()
+@Column({name: 'firstName', type:'varchar', length:'255'})
 @Field()
 firstName: string;
 
-@Column()
+@Column({name: 'email', type:'varchar', length:'255'})
 @Field()
 email: string;
 
-@Column()
-@Field(type => Int)
-phoneNumber: number;
+@Column({name: 'phoneNumber', type:'char', length:'10'})
+@Field()
+phoneNumber: string;
+
+@OneToMany(() => Animal, (animals) => animals.persons)
+@Field(() => [Animal],{ nullable: true })
+animals: Animal[]
 }

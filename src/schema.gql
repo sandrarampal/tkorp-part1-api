@@ -30,5 +30,52 @@ type Person {
 
 type Query {
   persons: [Person!]!
+  person(id: ID!): Person!
   animals: [Animal!]!
+  animal(id: ID!): Animal!
+}
+
+type Mutation {
+  createPerson(createPersonInput: CreatePersonInput!): Person!
+  updatePerson(updatePersonInput: UpdatePersonInput!): Person!
+  deletePerson(id: ID!): Person!
+  createAnimal(createAnimalInput: CreateAnimalInput!): Animal!
+  updateAnimal(updateAnimalInput: UpdateAnimalInput!): Animal!
+  deleteAnimal(id: ID!): Animal!
+}
+
+input CreatePersonInput {
+  lastName: String!
+  firstName: String!
+  email: String!
+  phoneNumber: String!
+}
+
+input UpdatePersonInput {
+  lastName: String
+  firstName: String
+  email: String
+  phoneNumber: String
+  id: ID!
+}
+
+input CreateAnimalInput {
+  name: String!
+  dateOfBirth: DateTime!
+  species: String!
+  breed: String!
+  color: String!
+  weight: Int!
+  ownerId: Int!
+}
+
+input UpdateAnimalInput {
+  name: String
+  dateOfBirth: DateTime
+  species: String
+  breed: String
+  color: String
+  weight: Int
+  ownerId: Int
+  id: ID!
 }

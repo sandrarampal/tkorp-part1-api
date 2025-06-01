@@ -4,6 +4,8 @@ import { Repository } from 'typeorm';
 import { Animal } from './animal.entity';
 import { CreateAnimalInput } from './dto/create-animal.input';
 import { UpdateAnimalInput } from './dto/update-animal.input';
+import { PaginationArgs } from 'src/common/pagination';
+import { PaginatedAnimals } from './dto/paginated-animals.output';
 
 interface Species {
   species: string;
@@ -17,8 +19,22 @@ export class AnimalsService {
     private animalsRepository: Repository<Animal>,
   ) {}
 
-  async findAll(): Promise<Animal[]> {
-    return this.animalsRepository.find({ relations: ['persons'] });
+  async findAll(paginationArgs: PaginationArgs): Promise<PaginatedAnimals> {
+    const { limit, offset } = paginationArgs;
+
+    const [items, totalCount] = await this.animalsRepository.findAndCount({
+      take: limit,
+      skip: offset,
+      relations: ['persons'],
+      order: { id: 'ASC' },
+    });
+
+    return {
+      items,
+      totalCount,
+      offset,
+      limit,
+    };
   }
 
   async findOne(id: number): Promise<Animal> {

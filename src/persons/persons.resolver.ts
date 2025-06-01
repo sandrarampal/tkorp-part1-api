@@ -1,23 +1,27 @@
-import { Args, ID, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, ID, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Person } from './persons.entity';
 import { PersonsService } from './persons.service';
 import { CreatePersonInput } from './dto/create-person.input';
 import { UpdatePersonInput } from './dto/update-person.input';
 import { MostAnimalOwnedOutput } from './dto/most-animals.output';
 import { HeaviestGroupOutput } from './dto/heaviest-group.output';
+import { PaginationArgs } from 'src/common/pagination';
+import { PaginatedPersons } from './dto/paginate-persons.output';
 
 @Resolver(() => Person)
 export class PersonsResolver {
   constructor(private readonly personsService: PersonsService) {}
 
-  @Query(() => [Person], { name: 'persons' })
-  async getPersons(): Promise<Person[]> {
-    return this.personsService.findAll();
+  @Query(() => PaginatedPersons, { name: 'persons' })
+  async getPersons(
+    @Args() paginationArgs: PaginationArgs,
+  ): Promise<PaginatedPersons> {
+    return this.personsService.findAll(paginationArgs);
   }
 
   @Query(() => Person, { name: 'person' })
   async getPersonById(
-    @Args('id', { type: () => ID }) id: number,
+    @Args('id', { type: () => Int }) id: number,
   ): Promise<Person> {
     return this.personsService.findOne(id);
   }

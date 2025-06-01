@@ -4,6 +4,8 @@ import { Person } from './persons.entity';
 import { Repository } from 'typeorm';
 import { CreatePersonInput } from './dto/create-person.input';
 import { UpdatePersonInput } from './dto/update-person.input';
+import { PaginationArgs } from 'src/common/pagination';
+import { PaginatedPersons } from './dto/paginate-persons.output';
 
 interface MostAnimalsOwnedResult {
   personId: number;
@@ -26,8 +28,22 @@ export class PersonsService {
     private personsRepository: Repository<Person>,
   ) {}
 
-  async findAll(): Promise<Person[]> {
-    return this.personsRepository.find({ relations: ['animals'] });
+  async findAll(paginationArgs: PaginationArgs): Promise<PaginatedPersons> {
+    const { limit, offset } = paginationArgs;
+
+    const [items, totalCount] = await this.personsRepository.findAndCount({
+      take: limit,
+      skip: offset,
+      relations: ['animals'],
+      order: { id: 'ASC' },
+    });
+
+    return {
+      items,
+      totalCount,
+      offset,
+      limit,
+    };
   }
 
   async findOne(id: number): Promise<Person> {

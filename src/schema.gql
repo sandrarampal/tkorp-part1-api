@@ -42,19 +42,59 @@ type HeaviestGroupOutput {
   totalWeight: Int!
 }
 
+type PaginatedPersons {
+  """List of Persons for the current page"""
+  items: [Person!]!
+
+  """Total number of items available across all pages"""
+  totalCount: Int!
+
+  """Number of items skipped (offset)"""
+  offset: Int!
+
+  """Maximum number of items per page (limit)"""
+  limit: Int!
+}
+
 type MostRepresentedSpeciesOutput {
   species: String!
   count: Int!
 }
 
+type PaginatedAnimals {
+  """List of animals for the current page"""
+  items: [Animal!]!
+
+  """Total number of items available across all pages"""
+  totalCount: Int!
+
+  """Number of items skipped (offset)"""
+  offset: Int!
+
+  """Maximum number of items per page (limit)"""
+  limit: Int!
+}
+
 type Query {
-  persons: [Person!]!
-  person(id: ID!): Person!
+  persons(
+    """Number of items to return"""
+    limit: Int! = 50
+
+    """Number of items to skip"""
+    offset: Int! = 0
+  ): PaginatedPersons!
+  person(id: Int!): Person!
   mostAnimalsOwned: [MostAnimalOwnedOutput!]
   mostCatsOwned: [MostAnimalOwnedOutput!]
   heaviestGroup: [HeaviestGroupOutput!]
-  animals: [Animal!]!
-  animal(id: ID!): Animal!
+  animals(
+    """Number of items to return"""
+    limit: Int! = 50
+
+    """Number of items to skip"""
+    offset: Int! = 0
+  ): PaginatedAnimals!
+  animal(id: Int!): Animal!
   oldestAnimal: [Animal!]
   mostRepresentedSpecies: MostRepresentedSpeciesOutput
   heaviestAnimal: [Animal!]

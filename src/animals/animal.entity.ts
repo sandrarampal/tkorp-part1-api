@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType, Scalar } from '@nestjs/graphql';
+import { Field, Int, ObjectType} from '@nestjs/graphql';
 import { GraphQLISODateTime } from '@nestjs/graphql';
 import { Person } from 'src/persons/persons.entity';
 import {

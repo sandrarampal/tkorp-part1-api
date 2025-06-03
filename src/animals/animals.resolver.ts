@@ -1,4 +1,4 @@
-import { Args, ID, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AnimalsService } from './animals.service';
 import { Animal } from './animal.entity';
 import { CreateAnimalInput } from './dto/create-animal.input';

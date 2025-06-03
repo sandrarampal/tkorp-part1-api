@@ -41,7 +41,7 @@ export class Animal {
   weight: number;
 
   @ManyToOne(() => Person, (persons) => persons.animals)
-  @JoinColumn({ name: 'ownerId' })
+  @JoinColumn({ name: 'ownerId' }) //faire le lien des animaux à un maître (un seul maître par animal)
   @Field(() => Person)
   persons: Person;
 

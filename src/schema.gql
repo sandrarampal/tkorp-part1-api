@@ -106,7 +106,7 @@ type Mutation {
   deletePerson(id: ID!): Person!
   createAnimal(createAnimalInput: CreateAnimalInput!): Animal!
   updateAnimal(updateAnimalInput: UpdateAnimalInput!): Animal!
-  deleteAnimal(id: ID!): Animal!
+  deleteAnimal(id: Int!): Animal!
 }
 
 input CreatePersonInput {

@@ -7,6 +7,7 @@ import { UpdateAnimalInput } from './dto/update-animal.input';
 import { PaginationArgs } from 'src/common/pagination';
 import { PaginatedAnimals } from './dto/paginated-animals.output';
 
+//interface permettant d'afficher chaque espèce et le nombre d'animaux pour chaque.
 interface Species {
   species: string;
   count: number;
@@ -19,6 +20,7 @@ export class AnimalsService {
     private animalsRepository: Repository<Animal>,
   ) {}
 
+  //Récupérer tous les animaux avec un système de pagination
   async findAll(paginationArgs: PaginationArgs): Promise<PaginatedAnimals> {
     const { limit, offset } = paginationArgs;
 
@@ -37,6 +39,7 @@ export class AnimalsService {
     };
   }
 
+  //trouver un animal avec son Id
   async findOne(id: number): Promise<Animal> {
     const animal = await this.animalsRepository.findOne({
       where: { id },
@@ -83,7 +86,7 @@ export class AnimalsService {
   async findOldestAnimal(): Promise<Animal[]> {
     const oldestAnimal = await this.animalsRepository
       .createQueryBuilder('animal')
-      .orderBy('animal.dateOfBirth', 'ASC')
+      .orderBy('animal.dateOfBirth', 'ASC') //ordonner les animaux selon leur date de naissance
       .getMany();
     return oldestAnimal || null;
     //L'animal le plus vieux est Rocky (ID: 934), un lapin né le 20-09-2009.
@@ -93,11 +96,11 @@ export class AnimalsService {
   async findMostRepresentatedSpecies(): Promise<Species | null> {
     const result = await this.animalsRepository
       .createQueryBuilder('animal')
-      .select('animal.species', 'species')
-      .addSelect('COUNT(animal.id)', 'count')
-      .groupBy('animal.species')
-      .orderBy('count', 'DESC')
-      .limit(1)
+      .select('animal.species', 'species') //choisit le champ "species"
+      .addSelect('COUNT(animal.id)', 'count') //compte le nombre d'animaux dans chaque espèce et met la valeur dans une variable count
+      .groupBy('animal.species') //regroupe les animaux de chaque espèce
+      .orderBy('count', 'DESC') //trie ses groupe en ordre de "count" décroissant
+      .limit(1) //donne le plus haut résultat
       .getRawOne<Species>();
     return result || null;
   }
@@ -108,7 +111,7 @@ export class AnimalsService {
     const heaviestAnimal = await this.animalsRepository
       .createQueryBuilder('animal')
       .orderBy('animal.weight', 'DESC')
-      .leftJoinAndSelect('animal.persons', 'persons')
+      .leftJoinAndSelect('animal.persons', 'persons') //récupère le nom de la personne possédant l'animal le plus lourd
       .getMany();
 
     return heaviestAnimal;

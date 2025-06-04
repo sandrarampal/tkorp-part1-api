@@ -111,7 +111,7 @@ src/
 └── schema.gql
 ```
 
-## Exemples de Requêtes GraphQL
+## Exemple de Requêtes GraphQL
 
 ### Lister les personnes
 ```graphql

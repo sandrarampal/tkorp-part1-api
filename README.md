@@ -85,14 +85,30 @@ L'API sera accessible à l'adresse : `http://localhost:3000/graphql`
 
 ```
 src/
+├── animals/
+│   ├── dto/
+│   ├── animals.entity.ts
+│   ├── animals.service.ts
+│   ├── animals.resolver.ts
+│   ├── animals.module.ts
+│   ├── animals.resolver.spec.ts
+│   └── animals.service.spec.ts
 ├── persons/
 │   ├── dto/
 │   ├── persons.entity.ts
 │   ├── persons.service.ts
-│   └── persons.resolver.ts
+│   ├── persons.resolver.ts
+│   ├── persons.module.ts
+│   ├── persons.resolver.spec.ts
+│   └── persons.service.spec.ts
 ├── common/
 │   └── pagination.ts
-└── app.module.ts
+├── app.module.ts
+├── app.controller.ts
+├── app.service.ts
+├── app.controller.spec.ts
+├── main.ts
+└── schema.gql
 ```
 
 ## Exemples de Requêtes GraphQL

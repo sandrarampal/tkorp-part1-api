@@ -22,13 +22,13 @@ Ce projet est une API backend construite avec NestJS et GraphQL, permettant de g
   - Trouver les personnes ayant le groupe d'animaux le plus lourd
   Sophia Brown (id: 18) a le groupe d'animaux le plus lourd, à 172152g.
 
-  -Trouver l'animal le plus vieux:
+  - Trouver l'animal le plus vieux:
   L'animal le plus vieux est Rocky (ID: 934), un lapin né le 20-09-2009.
 
-  -Trouver l'espèce animale la plus représentée:
+  - Trouver l'espèce animale la plus représentée:
   L'espèce animale la plus représentée est "Bird" qui apparaît 179 fois
 
-  -Trouver l'animal le plus lourd et son propriétaire:
+  - Trouver l'animal le plus lourd et son propriétaire:
   L'animal le plus lourd est Chloe, un caniche de 49937g qui appartient à Emma Smith (id: 209)
 
 

@@ -42,8 +42,8 @@ Ce projet est une API backend construite avec NestJS et GraphQL, permettant de g
 
 1. Cloner le repository :
 ```bash
-git clone [URL_DU_REPO]
-cd [NOM_DU_REPO]
+git clone https://github.com/sandrarampal/tkorp-part1-api/
+cd tkorp-part1-api
 ```
 
 2. Installer les dépendances :
@@ -63,12 +63,6 @@ DB_PASSWORD= "eYNyEnnjNLOuwxjaeXkCvQloznJfhYsZ"
 DB_PORT= "34997"
 ```
 
-4. Lancer les migrations de la base de données :
-```bash
-npm run migration:run
-# ou
-yarn migration:run
-```
 
 ## Démarrage
 
